@@ -3,13 +3,13 @@ library(dplyr)
 library(tidyverse)
 library(arulesSequences)
 
-minsup <- 0.02
+minsup <- 0.3
 filename <- "input.csv"
 
 
 transactions = read.csv(filename)
-write.table(transactions, "mytxtout.txt", sep=";", row.names = FALSE, col.names = FALSE, quote = FALSE)
-trans_matrix <- read_baskets("mytxtout.txt", sep = ";", info = c("sequenceID","eventID","SIZE"))
+write.table(transactions, "mytxtout.txt", sep=",", row.names = FALSE, col.names = FALSE, quote = FALSE)
+trans_matrix <- read_baskets("mytxtout.txt", sep = ",", info = c("sequenceID","eventID","SIZE"))
 
 s1 <- cspade(trans_matrix, parameter = list(support = minsup), control = list(verbose = TRUE))
 s1.df <- as(s1, "data.frame")
